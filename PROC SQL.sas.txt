@@ -1,0 +1,15 @@
+/* Concatenation */
+/* Would be similar to including two datasets in a DATA step set statement */
+proc sql;
+create table all as select * from sashelp.class
+outer union corr
+select * from mylib.class_new
+;quit;
+
+/* Renaming variables on the fly and dropping variables when are different in two tables */
+/* Syntax is similar to that of a SAS datastep rename/drop statements */
+proc sql;
+create table all as select * from sashelp.class
+outer union corr
+select * from mylib.class_new(rename=(Student=Name) drop=grade)
+;quit;
