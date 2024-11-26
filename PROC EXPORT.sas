@@ -62,4 +62,14 @@ where control=1;
 quit;
 
 %ExpExcel(data=control,path="&ctrlout.",sheet='Control');
+
+/*output dataset to excel spreadsheet*/
+proc export data=full_file_flagged dbms=xlsx
+outfile="\\fp01\Marketing\CRM\3. Analytics\Vendors\Web to Print\NaviStone - SG360\Reporting\Detail\detail_data.xlsx"
+replace;
+sheet="detail_plus_addl";
+run;
+
+/* send to e-mail */
+filename outbox email to="jessica.smith1@sleepnumber.com";
  
