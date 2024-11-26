@@ -1,0 +1,32 @@
+/* Read coefficients of quadratic equation a*x**2 + b*x + c.
+   For a ^= 0, use the quadratic formula to solve for real roots of
+   a*x**2 + b*x + c = 0.*/
+data Quadratic;
+input a b c;
+if a=0 then 
+   putlog "ERROR: The coefficient of the quadratic term is 0 for observation " _N_;
+else do;
+   discrim = b**2 - 4*a*c;
+   if discrim < 0 then do;
+      putlog "WARNING: No real roots for observation " _N_
+             "; the coefficients are " a= b= c=;
+      Root1 = .; Root2 = .;
+   end;
+   else do;
+      Root1 = (-b - sqrt(discrim)) / (2*a);
+      Root2 = (-b + sqrt(discrim)) / (2*a);
+      if Discrim=0 then 
+         putlog "NOTE: Repeated root for observation " _N_;
+   end;
+end;
+datalines;
+ 1 -1 -6
+ 1  7  6
+ 0  7  6
+ 2  7  7
+-2  5 12
+-2  4 -2
+ 5  4 10
+;
+ 
+proc print; format Root1 Root2 5.2; run;
